@@ -8,7 +8,8 @@
     
     <!-- PWA Tags -->
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#111827" />
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#0f172a" />
     <link rel="apple-touch-icon" href="/icon-192x192.png" />
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,6 +17,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+      html, body {
+        color-scheme: dark;
+        background-color: #0f172a;
+        color: #ffffff;
+      }
       body {
         font-family: 'Inter', sans-serif;
       }
@@ -120,7 +126,7 @@
 }
 </script>
 </head>
-  <body class="pb-24 sm:pb-0 bg-gray-900">
+  <body class="pb-24 sm:pb-0 bg-slate-900 text-white">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
     <script>
