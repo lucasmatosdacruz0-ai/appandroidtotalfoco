@@ -9,7 +9,7 @@
     <!-- PWA Tags -->
     <link rel="manifest" href="/manifest.json" />
     <meta name="color-scheme" content="dark">
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#0f172a">
     <link rel="apple-touch-icon" href="/icon-192x192.png" />
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,12 +18,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
       html, body {
-        color-scheme: dark;
         background-color: #0f172a;
         color: #ffffff;
+        color-scheme: dark;
       }
       body {
         font-family: 'Inter', sans-serif;
+      }
+      /* mantém botões e links com cor */
+      button, a, input, select, textarea {
+        color-scheme: dark;
+      }
+      .btn, button, .primary-btn {
+        background-color: #2563eb; /* azul padrão */
+        color: #fff;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+      }
+      .btn:hover, button:hover, .primary-btn:hover {
+        background-color: #1d4ed8;
       }
       /* Custom scrollbar for webkit browsers */
       .custom-scrollbar::-webkit-scrollbar {
@@ -102,6 +119,13 @@
       }
     </style>
     <script>
+      try {
+        document.documentElement.style.backgroundColor = '#0f172a';
+        document.documentElement.style.color = '#ffffff';
+        document.querySelector('meta[name="color-scheme"]').setAttribute('content', 'dark');
+      } catch(e) {}
+    </script>
+    <script>
       // Force dark mode
       document.documentElement.classList.add('dark');
     </script>
@@ -141,6 +165,11 @@
             });
         });
       }
+    </script>
+    <script>
+      document.body.style.backgroundColor = '#0f172a';
+      document.body.style.color = '#ffffff';
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f172a');
     </script>
   </body>
 </html>
