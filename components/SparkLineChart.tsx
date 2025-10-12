@@ -27,10 +27,10 @@ const SparkLineChart: React.FC<SparkLineChartProps> = ({ data, evolution }) => {
       : '#6b7280'; // gray-500
 
   const textColor = evolution > 0 
-      ? 'text-green-500 dark:text-green-400' 
+      ? 'text-green-400' 
       : evolution < 0 
-      ? 'text-red-500 dark:text-red-400' 
-      : 'text-gray-600 dark:text-gray-400';
+      ? 'text-red-400' 
+      : 'text-gray-400';
 
   return (
     <div className="flex items-center justify-center gap-x-2">

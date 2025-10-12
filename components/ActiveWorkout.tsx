@@ -103,7 +103,7 @@ const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ plan, onFinish, onAutoSwa
 
   const goToPrev = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(prev => prev + 1);
+      setCurrentIndex(prev => prev - 1);
     }
   };
   
@@ -154,25 +154,25 @@ const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ plan, onFinish, onAutoSwa
       <div className="bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 animate-fade-in max-w-2xl mx-auto">
         <div>
           <div className="flex justify-between mb-1">
-            <span className="text-base font-medium text-blue-700 dark:text-white">Progresso</span>
-            <span className="text-sm font-medium text-blue-700 dark:text-white">{currentIndex + 1} de {totalExercises}</span>
+            <span className="text-base font-medium text-white">Progresso</span>
+            <span className="text-sm font-medium text-white">{currentIndex + 1} de {totalExercises}</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+          <div className="w-full bg-gray-700 rounded-full h-2.5">
             <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progressPercentage}%` }}></div>
           </div>
         </div>
 
         <div className="mt-6 text-center">
-          <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">Exercício {currentIndex + 1}</p>
+          <p className="text-sm font-semibold text-gray-400">Exercício {currentIndex + 1}</p>
           <div className="flex items-center justify-center gap-2 mt-1">
               <button onClick={() => setSelectedExercise(currentExercise)} className="text-center">
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{currentExercise.name}</h2>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-white hover:text-blue-400 transition-colors">{currentExercise.name}</h2>
               </button>
           </div>
           
            <div className="flex items-center justify-center gap-4 mt-2 text-sm min-h-[24px]">
               {swappingId === currentExercise.id ? (
-                  <div className="flex items-center justify-center h-full gap-2 text-gray-500 dark:text-gray-400 italic">
+                  <div className="flex items-center justify-center h-full gap-2 text-gray-400 italic">
                       <div className="w-5 h-5 border-2 border-blue-500 border-solid border-t-transparent rounded-full animate-spin shrink-0"></div>
                       <span>"{swappingTip}"</span>
                   </div>
@@ -189,31 +189,31 @@ const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ plan, onFinish, onAutoSwa
           </div>
           
           <div className="flex items-center justify-center gap-3 mt-3 text-sm font-semibold">
-              <span className="bg-blue-100 text-blue-800 dark:bg-blue-900/70 dark:text-blue-200 px-3 py-1 rounded-full">{currentExercise.sets} séries</span>
-              <span className="bg-green-100 text-green-800 dark:bg-green-900/70 dark:text-green-200 px-3 py-1 rounded-full">{currentExercise.reps} reps</span>
+              <span className="bg-blue-900/70 text-blue-200 px-3 py-1 rounded-full">{currentExercise.sets} séries</span>
+              <span className="bg-green-900/70 text-green-200 px-3 py-1 rounded-full">{currentExercise.reps} reps</span>
           </div>
         </div>
         
         <div className="mt-6">
-          <h3 className="font-bold text-lg text-gray-700 dark:text-gray-300 mb-4 text-center">Registre seu Progresso</h3>
+          <h3 className="font-bold text-lg text-gray-300 mb-4 text-center">Registre seu Progresso</h3>
           <div className="space-y-3 max-w-md mx-auto">
               {Array.from({ length: numSets }).map((_, i) => {
                   const lastSet = lastPerformance?.sets[i];
                   return (
                       <div key={i} className={`flex items-center gap-2 sm:gap-4 p-3 rounded-lg transition-colors border-2 ${(exerciseSets[i]?.checked) ? 'bg-green-900/50 border-green-500' : 'bg-gray-700 border-transparent'}`} >
                           <button onClick={() => handleSetToggle(currentExercise.id, i)} className='flex items-center'>
-                              <CheckSquareIcon className={`w-7 h-7 ${(exerciseSets[i]?.checked) ? 'text-green-600 dark:text-green-400' : 'text-gray-400 dark:text-gray-500'}`} />
+                              <CheckSquareIcon className={`w-7 h-7 ${(exerciseSets[i]?.checked) ? 'text-green-400' : 'text-gray-500'}`} />
                           </button>
-                          <span className="font-semibold text-gray-800 dark:text-gray-200 w-14 shrink-0">Série {i + 1}</span>
+                          <span className="font-semibold text-gray-200 w-14 shrink-0">Série {i + 1}</span>
                           <div className='flex items-center gap-2 flex-grow'>
                             <input type="number" placeholder={lastSet?.weight || "kg"} value={exerciseSets[i]?.weight || ''} onChange={(e) => handleValueChange(currentExercise.id, i, 'weight', e.target.value)} className="w-full p-2 text-center bg-gray-800 border border-gray-500 rounded-md focus:ring-blue-500 focus:border-blue-500" />
-                            <span className='font-semibold text-gray-600 dark:text-gray-400 hidden sm:inline'>kg</span>
+                            <span className='font-semibold text-gray-400 hidden sm:inline'>kg</span>
                           </div>
                            <div className='flex items-center gap-2 flex-grow'>
                             <input type="number" placeholder={lastSet?.reps || "reps"} value={exerciseSets[i]?.reps || ''} onChange={(e) => handleValueChange(currentExercise.id, i, 'reps', e.target.value)} className="w-full p-2 text-center bg-gray-800 border border-gray-500 rounded-md focus:ring-blue-500 focus:border-blue-500" />
-                             <span className='font-semibold text-gray-600 dark:text-gray-400 hidden sm:inline'>reps</span>
+                             <span className='font-semibold text-gray-400 hidden sm:inline'>reps</span>
                           </div>
-                           <button onClick={() => setActiveTimerSetIndex(i)} className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:text-blue-500 dark:hover:text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors shrink-0" title="Iniciar cronômetro de descanso" aria-label="Iniciar cronômetro de descanso">
+                           <button onClick={() => setActiveTimerSetIndex(i)} className="p-2 rounded-full text-gray-400 hover:text-blue-500 hover:bg-blue-900/40 transition-colors shrink-0" title="Iniciar cronômetro de descanso" aria-label="Iniciar cronômetro de descanso">
                               <PlayIcon className="w-5 h-5" />
                           </button>
                       </div>
@@ -221,15 +221,15 @@ const ActiveWorkout: React.FC<ActiveWorkoutProps> = ({ plan, onFinish, onAutoSwa
               })}
           </div>
           <div className="max-w-md mx-auto mt-4">
-              <button onClick={handleAddSet} className="w-full flex items-center justify-center gap-2 text-blue-600 dark:text-blue-400 font-semibold py-2 px-4 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/40 border-2 border-dashed border-blue-400 dark:border-blue-500 transition-colors">
+              <button onClick={handleAddSet} className="w-full flex items-center justify-center gap-2 text-blue-400 font-semibold py-2 px-4 rounded-lg hover:bg-blue-900/40 border-2 border-dashed border-blue-500 transition-colors">
                   <PlusCircleIcon className="w-5 h-5"/>
                   Adicionar Série
               </button>
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
-          <button onClick={goToPrev} disabled={currentIndex === 0} className="bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-300 flex items-center disabled:opacity-50 disabled:cursor-not-allowed">
+        <div className="mt-8 pt-6 border-t border-gray-700 flex items-center justify-between">
+          <button onClick={goToPrev} disabled={currentIndex === 0} className="bg-gray-600 text-gray-200 font-bold py-3 px-6 rounded-lg hover:bg-gray-500 transition-colors duration-300 flex items-center disabled:opacity-50 disabled:cursor-not-allowed">
             <ArrowLeftIcon className="w-5 h-5 mr-2" />
             Anterior
           </button>

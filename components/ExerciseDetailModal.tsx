@@ -24,14 +24,14 @@ const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({ exercise, onC
         className="bg-gray-800 rounded-2xl shadow-xl w-full max-w-lg m-4 p-6 relative animate-slide-up"
         onClick={e => e.stopPropagation()}
       >
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 z-10">
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-200 z-10">
           <XIcon className="w-6 h-6" />
         </button>
 
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-4 pr-8">{exercise.name}</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 pr-8">{exercise.name}</h2>
 
         <div className="mb-6">
-            <h3 className="font-bold text-lg text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
+            <h3 className="font-bold text-lg text-gray-300 mb-2 flex items-center gap-2">
                 <VideoIcon className="w-5 h-5 text-blue-500" />
                 Demonstração em Vídeo
             </h3>
@@ -48,11 +48,11 @@ const ExerciseDetailModal: React.FC<ExerciseDetailModalProps> = ({ exercise, onC
         </div>
 
         <div>
-            <h3 className="font-bold text-lg text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
+            <h3 className="font-bold text-lg text-gray-300 mb-2 flex items-center gap-2">
                 <InfoIcon className="w-5 h-5 text-blue-500" />
                 Instruções
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 text-base">
+            <p className="text-gray-300 text-base">
                 {exercise.description}
             </p>
         </div>

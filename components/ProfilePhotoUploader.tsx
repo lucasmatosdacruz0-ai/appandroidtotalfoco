@@ -52,7 +52,7 @@ const ProfilePhotoUploader: React.FC<ProfilePhotoUploaderProps> = ({ isEditing, 
                 {isBase64 ? (
                     <img src={currentAvatar} alt="Avatar do usuário" className="w-full h-full object-cover rounded-full" />
                 ) : (
-                    <div className="w-full h-full bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                    <div className="w-full h-full bg-gray-700 rounded-full flex items-center justify-center">
                         <span className="text-5xl">{currentAvatar}</span>
                     </div>
                 )}

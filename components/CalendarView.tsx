@@ -37,13 +37,13 @@ const CalendarView: React.FC<CalendarViewProps> = ({ schedule, customWorkouts })
         const dateFormat = new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' });
         return (
             <div className="flex justify-between items-center py-2 px-1">
-                <button onClick={() => changeMonth(-1)} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                <button onClick={() => changeMonth(-1)} className="p-2 rounded-full hover:bg-gray-700">
                     <ChevronLeftIcon className="w-6 h-6" />
                 </button>
                 <div className="text-xl font-bold capitalize">
                     {dateFormat.format(currentDate)}
                 </div>
-                <button onClick={() => changeMonth(1)} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                <button onClick={() => changeMonth(1)} className="p-2 rounded-full hover:bg-gray-700">
                     <ChevronRightIcon className="w-6 h-6" />
                 </button>
             </div>
@@ -56,7 +56,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ schedule, customWorkouts })
         for (let i = 1; i <= 7; i++) { // Start from Monday
             const day = new Date(2024, 0, i);
             days.push(
-                <div className="text-center font-semibold text-sm text-gray-500 dark:text-gray-400" key={i}>
+                <div className="text-center font-semibold text-sm text-gray-400" key={i}>
                     {dateFormat.format(day).slice(0, 3)}
                 </div>
             );
@@ -96,26 +96,26 @@ const CalendarView: React.FC<CalendarViewProps> = ({ schedule, customWorkouts })
 
                 days.push(
                     <div
-                        className={`p-2 border-t border-l border-gray-200 dark:border-gray-700 flex flex-col ${!isCurrentMonth ? 'bg-gray-800/50' : 'bg-gray-800'}`}
+                        className={`p-2 border-t border-l border-gray-700 flex flex-col ${!isCurrentMonth ? 'bg-gray-800/50' : 'bg-gray-800'}`}
                         style={{minHeight: '8rem'}}
                         key={cellKey}
                     >
-                        <span className={`font-semibold text-sm self-start ${isCurrentMonth ? 'text-gray-700 dark:text-gray-300' : 'text-gray-400 dark:text-gray-500'} ${isToday(day) ? 'bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center' : ''}`}>
+                        <span className={`font-semibold text-sm self-start ${isCurrentMonth ? 'text-gray-300' : 'text-gray-500'} ${isToday(day) ? 'bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center' : ''}`}>
                             {formattedDate}
                         </span>
                         {plan && isCurrentMonth ? (
                              <div className="mt-1 text-xs flex-grow flex flex-col justify-between overflow-hidden">
                                 <div>
-                                    <p className="font-bold bg-blue-100 text-blue-800 dark:bg-blue-900/70 dark:text-blue-200 p-1 rounded overflow-hidden text-ellipsis whitespace-nowrap">{plan.name}</p>
+                                    <p className="font-bold bg-blue-900/70 text-blue-200 p-1 rounded overflow-hidden text-ellipsis whitespace-nowrap">{plan.name}</p>
                                     
                                     <div className={`mt-1 overflow-hidden transition-all ease-in-out duration-300 ${isCellExpanded ? 'max-h-48' : 'max-h-5'}`}>
                                         {/* Always render the list for smooth animation */}
                                         <ul className="space-y-0.5">
                                             {plan.exercises.length > 0 ? plan.exercises.map(ex => (
-                                                <li key={ex.id} className="text-gray-600 dark:text-gray-400 whitespace-nowrap text-ellipsis overflow-hidden">
+                                                <li key={ex.id} className="text-gray-400 whitespace-nowrap text-ellipsis overflow-hidden">
                                                     {ex.name}
                                                 </li>
-                                            )) : <p className="text-gray-500 dark:text-gray-500 italic">Plano vazio</p>}
+                                            )) : <p className="text-gray-500 italic">Plano vazio</p>}
                                         </ul>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ schedule, customWorkouts })
                                 {plan.exercises.length > 1 && (
                                     <button 
                                         onClick={() => toggleCellExpansion(cellKey)}
-                                        className="text-blue-600 dark:text-blue-400 font-semibold mt-1 text-xs self-start"
+                                        className="text-blue-400 font-semibold mt-1 text-xs self-start"
                                     >
                                         {isCellExpanded ? 'Ver menos' : `Ver mais`}
                                     </button>
@@ -141,7 +141,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ schedule, customWorkouts })
             );
         }
 
-        return <div className="border-r border-b border-gray-200 dark:border-gray-700">{rows}</div>;
+        return <div className="border-r border-b border-gray-700">{rows}</div>;
     };
 
 

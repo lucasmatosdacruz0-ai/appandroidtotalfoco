@@ -34,14 +34,14 @@ const EquipmentSelector: React.FC<EquipmentSelectorProps> = ({ location, onSelec
 
   return (
     <div className="text-center">
-      <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-100">Quais equipamentos você tem?</h2>
-      <p className="text-gray-600 dark:text-gray-400 mt-2 mb-8">Selecione os itens disponíveis para personalizar seu treino.</p>
+      <h2 className="text-2xl sm:text-3xl font-bold text-gray-100">Quais equipamentos você tem?</h2>
+      <p className="text-gray-400 mt-2 mb-8">Selecione os itens disponíveis para personalizar seu treino.</p>
       
       <div className="max-w-3xl mx-auto bg-gray-800 p-6 rounded-xl shadow-lg">
         <div className="flex justify-end mb-4">
             <button
                 onClick={handleSelectAll}
-                className="text-sm font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                className="text-sm font-semibold text-blue-400 hover:text-blue-300"
             >
                 {selected.length === equipmentList.length ? 'Limpar Seleção' : 'Selecionar Tudo'}
             </button>
@@ -60,9 +60,9 @@ const EquipmentSelector: React.FC<EquipmentSelectorProps> = ({ location, onSelec
                 type="checkbox"
                 checked={selected.includes(item)}
                 onChange={() => handleToggle(item)}
-                className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                className="w-5 h-5 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2"
               />
-              <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{item}</span>
+              <span className="ml-3 text-sm font-medium text-gray-300">{item}</span>
             </label>
           ))}
         </div>

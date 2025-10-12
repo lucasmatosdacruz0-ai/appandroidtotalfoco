@@ -107,7 +107,7 @@ const PlannerPage: React.FC = () => {
 
             <div className="bg-gray-800 p-6 rounded-2xl shadow-xl">
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Meus Planos de Treino</h2>
+                    <h2 className="text-2xl font-bold text-white">Meus Planos de Treino</h2>
                     <button 
                         onClick={openModalToCreate}
                         className="flex items-center gap-2 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
@@ -118,32 +118,32 @@ const PlannerPage: React.FC = () => {
                 </div>
                 <div className="space-y-3">
                     {customWorkouts.length > 0 ? customWorkouts.map(plan => (
-                        <div key={plan.id} className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg flex justify-between items-center">
+                        <div key={plan.id} className="bg-gray-700/50 p-4 rounded-lg flex justify-between items-center">
                             <div>
-                                <p className="font-bold text-gray-900 dark:text-gray-100">{plan.name}</p>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">{plan.exercises.length} exercícios</p>
+                                <p className="font-bold text-gray-100">{plan.name}</p>
+                                <p className="text-sm text-gray-400">{plan.exercises.length} exercícios</p>
                             </div>
                             <div className="flex items-center gap-2">
-                                <button onClick={() => openModalToEdit(plan)} className="p-2 text-gray-500 hover:text-blue-500 dark:hover:text-blue-400">
+                                <button onClick={() => openModalToEdit(plan)} className="p-2 text-gray-500 hover:text-blue-400">
                                     <EditIcon className="w-5 h-5"/>
                                 </button>
-                                <button onClick={() => handleDeletePlan(plan.id)} className="p-2 text-gray-500 hover:text-red-500 dark:hover:text-red-400">
+                                <button onClick={() => handleDeletePlan(plan.id)} className="p-2 text-gray-500 hover:text-red-400">
                                     <Trash2Icon className="w-5 h-5"/>
                                 </button>
                             </div>
                         </div>
                     )) : (
-                        <p className="text-center text-gray-500 dark:text-gray-400 py-4">Você ainda não criou nenhum plano. Clique em "Criar Plano" para começar!</p>
+                        <p className="text-center text-gray-400 py-4">Você ainda não criou nenhum plano. Clique em "Criar Plano" para começar!</p>
                     )}
                 </div>
             </div>
 
             <div className="bg-gray-800 p-6 rounded-2xl shadow-xl">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Agenda Semanal</h2>
+                <h2 className="text-2xl font-bold text-white mb-4">Agenda Semanal</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {weekDays.map(({key, label}) => (
-                        <div key={key} className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
-                            <label htmlFor={`select-${key}`} className="font-bold text-lg text-gray-900 dark:text-gray-100">{label}</label>
+                        <div key={key} className="bg-gray-700/50 p-4 rounded-lg">
+                            <label htmlFor={`select-${key}`} className="font-bold text-lg text-gray-100">{label}</label>
                             <select 
                                 id={`select-${key}`}
                                 value={schedule[key] || ''}
@@ -162,7 +162,7 @@ const PlannerPage: React.FC = () => {
             </div>
 
             <div className="bg-gray-800 p-6 rounded-2xl shadow-xl">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Seu Calendário</h2>
+                <h2 className="text-2xl font-bold text-white mb-4">Seu Calendário</h2>
                 <CalendarView schedule={schedule} customWorkouts={customWorkouts} />
             </div>
         </div>

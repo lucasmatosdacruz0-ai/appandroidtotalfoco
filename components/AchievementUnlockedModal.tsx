@@ -17,7 +17,7 @@ const AchievementUnlockedModal: React.FC<AchievementUnlockedModalProps> = ({ ach
         className="bg-gray-800 rounded-2xl shadow-xl w-full max-w-lg m-4 p-6 relative animate-slide-up"
         onClick={e => e.stopPropagation()}
       >
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 z-10">
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-200 z-10">
           <XIcon className="w-6 h-6" />
         </button>
 
@@ -25,16 +25,16 @@ const AchievementUnlockedModal: React.FC<AchievementUnlockedModalProps> = ({ ach
             <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
                 Conquista Desbloqueada!
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 mt-2">Você é incrível! Veja o que você ganhou:</p>
+            <p className="text-gray-400 mt-2">Você é incrível! Veja o que você ganhou:</p>
         </div>
 
         <div className="mt-6 space-y-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
           {achievements.map((ach) => (
-            <div key={ach.id} className="p-4 rounded-xl text-center transition-opacity border-2 border-yellow-400 bg-yellow-50 dark:bg-yellow-900/30 flex items-center gap-4">
+            <div key={ach.id} className="p-4 rounded-xl text-center transition-opacity border-2 border-yellow-400 bg-yellow-900/30 flex items-center gap-4">
               <ach.icon className="w-12 h-12 mx-auto text-yellow-500 shrink-0" />
               <div className="text-left">
-                <h3 className="font-bold text-lg text-gray-800 dark:text-gray-100">{ach.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{ach.description}</p>
+                <h3 className="font-bold text-lg text-gray-100">{ach.title}</h3>
+                <p className="text-sm text-gray-400 mt-1">{ach.description}</p>
               </div>
             </div>
           ))}

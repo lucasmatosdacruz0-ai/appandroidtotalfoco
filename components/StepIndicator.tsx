@@ -32,7 +32,7 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep, onStepClick 
                 isClickable ? 'cursor-pointer' : ''
               } ${
                 index !== steps.length - 1 ? "after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" : ""
-              } ${isCompleted ? 'after:border-blue-500' : 'after:border-gray-200 dark:after:border-gray-700'}`}
+              } ${isCompleted ? 'after:border-blue-500' : 'after:border-gray-700'}`}
             >
               <div className="flex flex-col items-center justify-center">
                 <div
@@ -40,7 +40,7 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep, onStepClick 
                     ${isClickable ? 'hover:scale-110' : ''}
                     ${isActive ? 'bg-blue-500 text-white' : ''}
                     ${isCompleted ? 'bg-blue-500 text-white' : ''}
-                    ${!isActive && !isCompleted ? 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300' : ''}
+                    ${!isActive && !isCompleted ? 'bg-gray-700 text-gray-300' : ''}
                   `}
                 >
                   {isCompleted ? (
@@ -51,7 +51,7 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep, onStepClick 
                     <span className="font-bold">{index + 1}</span>
                   )}
                 </div>
-                <span className={`text-sm sm:text-base font-medium mt-2 text-center ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}`}>{step.label}</span>
+                <span className={`text-sm sm:text-base font-medium mt-2 text-center ${isActive ? 'text-blue-400' : 'text-gray-400'}`}>{step.label}</span>
               </div>
             </li>
           );

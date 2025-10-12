@@ -23,10 +23,10 @@ const ExercisePickerModal: React.FC<ExercisePickerModalProps> = ({ onClose, onSe
                 className="bg-gray-800 rounded-2xl shadow-xl w-full max-w-md m-4 p-6 flex flex-col max-h-[80vh]"
                 onClick={e => e.stopPropagation()}
             >
-                <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 z-10">
+                <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-200 z-10">
                     <XIcon className="w-6 h-6" />
                 </button>
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 pr-8">Selecionar Exercício</h2>
+                <h2 className="text-2xl font-bold text-white mb-4 pr-8">Selecionar Exercício</h2>
                 
                 <input 
                     type="text"
@@ -43,7 +43,7 @@ const ExercisePickerModal: React.FC<ExercisePickerModalProps> = ({ onClose, onSe
                             <li key={name}>
                                 <button
                                     onClick={() => onSelect(name)}
-                                    className="w-full text-left p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-gray-800 dark:text-gray-200 transition-colors"
+                                    className="w-full text-left p-3 rounded-lg bg-gray-700/50 hover:bg-blue-900/50 text-gray-200 transition-colors"
                                 >
                                     {name}
                                 </button>
