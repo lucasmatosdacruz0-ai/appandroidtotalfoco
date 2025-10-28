@@ -1,12 +1,10 @@
-import { supabase, isSupabaseConfigured } from './supabaseClient.ts';
+import { supabase } from './supabaseClient.ts';
 import { HistoricalWorkout, UserProfile, CompletedSet, Exercise, WorkoutSummaryData, ExerciseComparison, ExercisePerformance, PersonalRecords, CustomWorkoutPlan, WeeklySchedule, AiPreferences, AiGeneratedWeeklyPlan, DayOfWeek, ExerciseProgress, ExerciseDataPoint } from './types.ts';
 import { processWorkoutCompletion, GamificationResult } from './gamificationService.ts';
 
 // --- Helper Functions ---
 
 const getUserId = async (): Promise<string> => {
-    if (!isSupabaseConfigured) throw new Error("Supabase não está configurado.");
-    
     const { data: { session }, error } = await supabase.auth.getSession();
     
     if (error) {
@@ -24,7 +22,6 @@ const getUserId = async (): Promise<string> => {
 // --- Profile Management ---
 
 export const getUserProfile = async (userId: string): Promise<UserProfile | null> => {
-    if (!isSupabaseConfigured) return null;
     try {
         const { data, error } = await supabase
             .from('profiles')
@@ -47,7 +44,6 @@ export const getUserProfile = async (userId: string): Promise<UserProfile | null
 };
 
 export const saveUserProfile = async (profile: UserProfile): Promise<void> => {
-    if (!isSupabaseConfigured) return;
     const userId = await getUserId();
     if (userId !== profile.id) throw new Error("Não autorizado a salvar este perfil.");
 
@@ -65,7 +61,6 @@ export const saveUserProfile = async (profile: UserProfile): Promise<void> => {
 // --- AI Preferences ---
 
 export const getAiPreferences = async (): Promise<AiPreferences> => {
-    if (!isSupabaseConfigured) return { level: null, location: null, equipment: [], duration: null, focus: null };
     const userId = await getUserId();
     const { data, error } = await supabase
         .from('profiles')
@@ -78,7 +73,6 @@ export const getAiPreferences = async (): Promise<AiPreferences> => {
 };
 
 export const saveAiPreferences = async (prefs: AiPreferences): Promise<void> => {
-    if (!isSupabaseConfigured) return;
     const userId = await getUserId();
     const { error } = await supabase.from('profiles').update({ ai_prefs: prefs }).eq('id', userId);
     if (error) throw new Error(`Erro ao salvar preferências de IA: ${error.message}`);
@@ -87,7 +81,6 @@ export const saveAiPreferences = async (prefs: AiPreferences): Promise<void> => 
 // --- Workout History & Summary ---
 
 export const getWorkoutHistory = async (): Promise<HistoricalWorkout[]> => {
-    if (!isSupabaseConfigured) return [];
     try {
         const userId = await getUserId();
         const { data, error } = await supabase
@@ -171,8 +164,6 @@ const calculateWorkoutSummary = (completedWorkout: HistoricalWorkout, history: H
 };
 
 export const addWorkoutToHistory = async (completedWorkout: HistoricalWorkout): Promise<{ summary: WorkoutSummaryData; gamificationResult: GamificationResult }> => {
-    if (!isSupabaseConfigured) throw new Error("Supabase não configurado.");
-    
     const userId = await getUserId();
     
     const [currentProfile, history, currentPRs] = await Promise.all([
@@ -247,7 +238,6 @@ export const addWorkoutToHistory = async (completedWorkout: HistoricalWorkout): 
 // --- Personal Records ---
 
 export const getPersonalRecords = async (): Promise<PersonalRecords> => {
-    if (!isSupabaseConfigured) return {};
     try {
         const userId = await getUserId();
         const { data, error } = await supabase
@@ -335,7 +325,6 @@ export const calculateAllExercisesProgress = (history: HistoricalWorkout[]): Exe
 // --- Custom Workouts & Planner ---
 
 export const getCustomWorkouts = async (): Promise<CustomWorkoutPlan[]> => {
-    if (!isSupabaseConfigured) return [];
     try {
         const userId = await getUserId();
         const { data, error } = await supabase
@@ -354,7 +343,6 @@ export const getCustomWorkouts = async (): Promise<CustomWorkoutPlan[]> => {
 };
 
 export const saveCustomWorkouts = async (workouts: CustomWorkoutPlan[]): Promise<void> => {
-    if (!isSupabaseConfigured) return;
     const userId = await getUserId();
     
     const workoutsToSave = workouts.map(w => ({ ...w, user_id: userId }));
@@ -381,7 +369,6 @@ export const saveCustomWorkouts = async (workouts: CustomWorkoutPlan[]): Promise
 };
 
 export const getWeeklySchedule = async (): Promise<WeeklySchedule> => {
-    if (!isSupabaseConfigured) return {};
     try {
         const userId = await getUserId();
         const { data, error } = await supabase
@@ -401,15 +388,12 @@ export const getWeeklySchedule = async (): Promise<WeeklySchedule> => {
 };
 
 export const saveWeeklySchedule = async (schedule: WeeklySchedule): Promise<void> => {
-    if (!isSupabaseConfigured) return;
     const userId = await getUserId();
     const { error } = await supabase.from('profiles').update({ schedule: schedule }).eq('id', userId);
     if (error) throw new Error(`Erro ao salvar agenda semanal: ${error.message}`);
 };
 
 export const saveGeneratedWeeklyPlan = async (generatedPlan: AiGeneratedWeeklyPlan): Promise<void> => {
-    if (!isSupabaseConfigured) return;
-
     const currentWorkouts = await getCustomWorkouts();
     
     const newWorkouts: CustomWorkoutPlan[] = generatedPlan.plans.map(p => ({

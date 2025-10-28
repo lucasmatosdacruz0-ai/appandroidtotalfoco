@@ -3,18 +3,15 @@ import { CameraIcon } from './icons.tsx';
 import { resizeAndCompressImage } from '../imageUtils.ts';
 
 interface ProfilePhotoUploaderProps {
-    isEditing: boolean;
     currentAvatar: string;
     onPhotoSelected: (base64: string) => void;
 }
 
-const ProfilePhotoUploader: React.FC<ProfilePhotoUploaderProps> = ({ isEditing, currentAvatar, onPhotoSelected }) => {
+const ProfilePhotoUploader: React.FC<ProfilePhotoUploaderProps> = ({ currentAvatar, onPhotoSelected }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleAvatarClick = () => {
-        if (isEditing) {
-            fileInputRef.current?.click();
-        }
+        fileInputRef.current?.click();
     };
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +31,7 @@ const ProfilePhotoUploader: React.FC<ProfilePhotoUploaderProps> = ({ isEditing, 
     const isBase64 = currentAvatar.startsWith('data:image');
 
     return (
-        <div className="relative shrink-0">
+        <div className="relative shrink-0 group">
             <input
                 type="file"
                 accept="image/*"
@@ -45,9 +42,8 @@ const ProfilePhotoUploader: React.FC<ProfilePhotoUploaderProps> = ({ isEditing, 
             />
             <button
                 onClick={handleAvatarClick}
-                className={`w-24 h-24 sm:w-28 sm:h-28 rounded-full transition-all duration-300 ${isEditing ? 'cursor-pointer' : 'cursor-default'}`}
-                disabled={!isEditing}
-                title={isEditing ? 'Trocar foto de perfil' : 'Foto de perfil'}
+                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full transition-all duration-300 cursor-pointer"
+                title="Trocar foto de perfil"
             >
                 {isBase64 ? (
                     <img src={currentAvatar} alt="Avatar do usuário" className="w-full h-full object-cover rounded-full" />
@@ -57,11 +53,9 @@ const ProfilePhotoUploader: React.FC<ProfilePhotoUploaderProps> = ({ isEditing, 
                     </div>
                 )}
 
-                {isEditing && (
-                    <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                        <CameraIcon className="w-8 h-8 text-white" />
-                    </div>
-                )}
+                <div className="absolute inset-0 bg-black/60 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <CameraIcon className="w-8 h-8 text-white" />
+                </div>
             </button>
         </div>
     );

@@ -3,19 +3,11 @@ import { User } from './types.ts';
 import * as authService from './services/authService.ts';
 import LoginPage from './pages/LoginPage.tsx';
 import RegisterPage from './pages/RegisterPage.tsx';
-import { supabase, isSupabaseConfigured } from './services/supabaseClient.ts';
+import { supabase } from './services/supabaseClient.ts';
 import Spinner from './components/Spinner.tsx';
+import { LogoIcon } from './components/icons.tsx';
 
 const App = lazy(() => import('./App.tsx'));
-
-const ConfigErrorScreen = () => (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-center p-4">
-        <h1 className="text-2xl font-bold text-red-500">Configuração Incompleta</h1>
-        <p className="text-gray-300 mt-4 max-w-lg">
-            Por favor, abra o arquivo <code className="bg-gray-700 text-yellow-300 p-1 rounded">services/supabaseClient.ts</code> e substitua os valores de placeholder pelas suas credenciais reais do Supabase para continuar.
-        </p>
-    </div>
-);
 
 const InitErrorScreen = ({ error }: { error: string }) => {
     // A simple parser for styling text based on simple markup.
@@ -50,18 +42,10 @@ const Auth: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [authView, setAuthView] = useState<'login' | 'register'>('login');
     const [initError, setInitError] = useState<string | null>(null);
-    const [isConfigured, setIsConfigured] = useState(isSupabaseConfigured);
 
     useEffect(() => {
         console.log("Auth: Component mounted. Starting initialization.");
-
-        if (!isConfigured) {
-            console.error("Auth: Supabase is not configured. Halting app initialization.");
-            setLoading(false);
-            return;
-        }
-        console.log("Auth: Supabase configuration check passed.");
-
+        
         setLoading(true);
         setInitError(null);
         
@@ -72,6 +56,7 @@ const Auth: React.FC = () => {
                 
                 if (error) {
                     console.error("Auth Error: Could not get session from Supabase.", error);
+                    const siteUrl = window.location.origin;
                     const detailedError = `Ocorreu um erro ao conectar com o serviço de autenticação. Isso é **normal** quando o app é publicado em um novo site.
 
 **Causa:** O Supabase, por segurança, só aceita logins de URLs que você autorizou. A URL do seu site **ainda não foi autorizada**.
@@ -79,7 +64,7 @@ const Auth: React.FC = () => {
 **Solução Rápida (Passo a Passo):**
 
 1.  **Copie a URL oficial do seu site abaixo:**
-    \`https://focototalllll.netlify.app\`
+    \`${siteUrl}\`
 
 2.  **Abra as configurações de autenticação do seu projeto Supabase.**
     (Vá para \`app.supabase.com\` -> seu projeto -> \`Authentication\` -> \`URL Configuration\`)
@@ -140,17 +125,13 @@ ${error.message}`;
             console.log("Auth: Unsubscribing from auth state changes.");
             subscription?.unsubscribe();
         };
-    }, [isConfigured]);
+    }, []);
 
     const handleLogout = async () => {
         await authService.logout();
         setCurrentUser(null);
         setAuthView('login');
     };
-
-    if (!isConfigured) {
-        return <ConfigErrorScreen />;
-    }
 
     if (loading) {
         return (

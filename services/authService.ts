@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from './supabaseClient.ts';
+import { supabase } from './supabaseClient.ts';
 import { User } from '../types.ts';
 import { BASE_XP_TO_LEVEL_UP } from '../constants.ts';
 
@@ -12,8 +12,6 @@ const mapSupabaseUserToAppUser = (supabaseUser: any): User => {
 };
 
 export const register = async (name: string, email: string, password: string): Promise<User> => {
-    if (!isSupabaseConfigured) throw new Error("Supabase não está configurado. Verifique suas variáveis de ambiente.");
-    
     // Passo 1: Registrar o usuário. Os metadados são passados aqui para o trigger do banco de dados.
     const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
         email,
@@ -37,8 +35,6 @@ export const register = async (name: string, email: string, password: string): P
 };
 
 export const login = async (email: string, password: string): Promise<User> => {
-    if (!isSupabaseConfigured) throw new Error("Supabase não está configurado.");
-    
     const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -51,7 +47,6 @@ export const login = async (email: string, password: string): Promise<User> => {
 };
 
 export const logout = async (): Promise<void> => {
-    if (!isSupabaseConfigured) return;
     const { error } = await supabase.auth.signOut();
     if (error) {
         console.error("Error logging out:", error.message);
@@ -59,8 +54,6 @@ export const logout = async (): Promise<void> => {
 };
 
 export const getCurrentUser = async (): Promise<User | null> => {
-    if (!isSupabaseConfigured) return null;
-
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
         return null;
