@@ -106,8 +106,8 @@ const PlannerPage: React.FC = () => {
             )}
 
             <div className="bg-gray-800 p-6 rounded-2xl shadow-xl">
-                <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-bold text-white">Meus Planos de Treino</h2>
+                <div className="mb-4">
+                    <h2 className="text-2xl font-bold text-white mb-4">Meus Planos de Treino</h2>
                     <button 
                         onClick={openModalToCreate}
                         className="flex items-center gap-2 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
