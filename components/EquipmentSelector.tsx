@@ -10,13 +10,26 @@ interface EquipmentSelectorProps {
 }
 
 const EquipmentSelector: React.FC<EquipmentSelectorProps> = ({ location, onSelect, currentEquipment }) => {
-  const [selected, setSelected] = useState<string[]>(currentEquipment);
   const equipmentList = location === TrainingLocation.Gym ? GYM_EQUIPMENT : HOME_EQUIPMENT;
 
+  const [selected, setSelected] = useState<string[]>(() => {
+    // When the component initializes, if there's no pre-existing selection
+    // from navigating back, default to selecting all available equipment.
+    if (currentEquipment.length > 0) {
+      return currentEquipment;
+    }
+    return equipmentList;
+  });
+
   useEffect(() => {
-    // Reset selected state if location changes to ensure equipment from different locations are not mixed.
-    setSelected([]);
-  }, [location]);
+    // This effect ensures the selected equipment is always valid for the current location.
+    // If the user goes back, changes location, and comes forward, the `selected` state
+    // might temporarily hold equipment from the old location. This check corrects it.
+    const isSelectionValid = selected.every(item => equipmentList.includes(item));
+    if (!isSelectionValid) {
+      setSelected(equipmentList);
+    }
+  }, [location, selected, equipmentList]);
 
   const handleToggle = (item: string) => {
     setSelected(prev =>
